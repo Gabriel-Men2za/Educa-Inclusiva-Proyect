@@ -3,11 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Metadatos para SEO y redes sociales -->
+  <meta name="description" content="Portal de recursos pedagógicos accesibles e inclusivos para docentes, estudiantes y familias en Panamá.">
+  <meta name="keywords" content="educación inclusiva, Panamá, recursos pedagógicos, accesibilidad, MEDUCA, discapacidad">
+  <meta name="author" content="Educa Inclusiva Panamá">
+  
   <title>Educa Inclusiva Panamá | Portal de Recursos Pedagógicos Accesibles</title>
+
+  <!-- Estilos básicos integrados con enfoque en accesibilidad y alto contraste -->
+  <style>
+    :root {
+      --color-primario: #004b87; /* Azul institucional accesible */
+      --color-secundario: #d9232e; /* Rojo acento */
+      --color-fondo: #f8fafc;
+      --color-texto: #1e293b;
+      --color-blanco: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Enlace para saltar al contenido (vital para lectores de pantalla y teclado) */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-primario);
+      color: var(--color-blanco);
+      padding: 8px 16px;
+      z-index: 100;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    header {
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: var(--color-blanco);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      color: var(--color-primario);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+    }
+
+    .btn-principal {
+      display: inline-block;
+      background-color: var(--color-primario);
+      color: var(--color-blanco);
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-principal:hover {
+      background-color: #003666;
+    }
+
+    /* Indicador de foco claro para navegación con teclado */
+    .btn-principal:focus-visible {
+      outline: 3px solid var(--color-secundario);
+      outline-offset: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+  </style>
 </head>
 <body>
-<a href="public/pages/educa_inclusiva_panam.html"></a>
-  </body>
+
+  <!-- Mejora de accesibilidad: permite saltar directo al contenido principal -->
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+  <header role="banner">
+    <h1>Educa Inclusiva Panamá</h1>
+    <p style="margin-bottom: 0; font-size: 1rem; opacity: 0.9;">Portal de Recursos Pedagógicos Accesibles</p>
+  </header>
+
+  <main id="contenido-principal" role="main">
+    <h2>Bienvenidos al espacio de aprendizaje para todos</h2>
+    <p>
+      Encuentra guías adaptadas, materiales didácticos y herramientas diseñadas bajo los principios del Diseño Universal para el Aprendizaje (DUA) en Panamá.
+    </p>
+    
+    <!-- Tu enlace original, ahora visible, estilizado como botón y descriptivo -->
+    <a href="public/pages/educa_inclusiva_panam.html" class="btn-principal" aria-label="Ingresar al portal de recursos de Educa Inclusiva Panamá">
+      Explorar Recursos Pedagógicos &rarr;
+    </a>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; 2026 Educa Inclusiva Panamá. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
 </html>
-  
   
