@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso a cuenta | Educa Inclusiva Panamá</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#174C43',
+              greenLight: '#23695d',
+              blue: '#245EAA',
+              blueDark: '#1a457d',
+              yellow: '#F2C66D',
+              yellowDark: '#d9a944',
+              bgLight: '#F5F7F8'
+            },
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-page flex min-h-screen flex-col bg-brand-bgLight font-sans text-gray-800 antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-brand-yellow focus:p-4 focus:font-bold focus:text-brand-green">
+    Saltar al contenido principal
+  </a>
+
+  <div id="accessibility-widget" role="region" aria-label="Acceso rápido de accesibilidad">
+    <button id="accessibility-toggle" type="button" class="flex items-center justify-center rounded-full bg-brand-blue text-white shadow-xl transition hover:bg-brand-blueDark focus-visible-custom" aria-expanded="false" aria-controls="accessibility-menu" aria-label="Abrir menú de accesibilidad">
+      <i data-lucide="person-standing" class="h-7 w-7" aria-hidden="true"></i>
+    </button>
+    <div id="accessibility-menu" class="hidden" role="group" aria-labelledby="accessibility-menu-title">
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 id="accessibility-menu-title" class="text-base font-bold text-brand-green">Accesibilidad</h2>
+        <button id="accessibility-menu-close" type="button" class="rounded p-1 text-gray-600 transition hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar menú de accesibilidad">
+          <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="accessibility-controls" role="group" aria-label="Herramientas de accesibilidad web">
+        <button id="btn-text-decrease" type="button" class="rounded bg-brand-green/10 font-bold text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Disminuir tamaño de texto" title="Disminuir tamaño de texto">A-</button>
+        <button id="btn-text-reset" type="button" class="rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Restablecer tamaño de texto" title="Restablecer tamaño de texto">Normal</button>
+        <button id="btn-text-increase" type="button" class="rounded bg-brand-green/10 font-bold text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Aumentar tamaño de texto" title="Aumentar tamaño de texto">A+</button>
+        <div class="accessibility-divider" aria-hidden="true"></div>
+        <button id="btn-contrast" type="button" class="flex items-center justify-center gap-2 rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Cambiar modo de contraste; actual: normal" aria-pressed="false">
+          <i data-lucide="sun-moon" class="h-4 w-4" aria-hidden="true"></i><span>Alto Contraste</span>
+        </button>
+        <button id="btn-highlight-links" type="button" class="flex items-center justify-center gap-2 rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Resaltar enlaces interactivos" aria-pressed="false">
+          <i data-lucide="link" class="h-4 w-4" aria-hidden="true"></i><span>Resaltar enlaces</span>
+        </button>
+        <button id="btn-reduce-motion" type="button" class="flex items-center justify-center gap-2 rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Desactivar animaciones" aria-pressed="false" title="Desactivar animaciones">
+          <i data-lucide="pause-circle" class="h-4 w-4" aria-hidden="true"></i><span>Desactivar animaciones</span>
+        </button>
+        <button id="btn-screen-narrator" type="button" class="flex items-center justify-center gap-2 rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" aria-label="Activar narrador de pantalla" aria-pressed="false">
+          <i data-lucide="volume-2" class="h-4 w-4" aria-hidden="true"></i><span>Activar narrador de pantalla</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="accessibility-status" class="sr-only" aria-live="polite"></div>
+
+  <header class="auth-header">
+    <div class="auth-header-inner">
+      <a href="/" class="auth-brand focus-visible-custom">
+ <div class="w-10 h-10 rounded-lg bg-brand-yellow flex items-center justify-center text-brand-green font-black text-xl shadow" aria-hidden="true">
+          EI
+        </div>
+        <span>
+          <strong>Educa Inclusiva Panamá</strong>
+          <small>Apoyo a la diversidad educativa</small>
+        </span>
+      </a>
+      <nav class="hidden md:flex items-center gap-4 text-xs font-semibold" aria-label="Secciones del portal">
+        <a href="/#recursos" class="text-brand-green hover:text-brand-blue hover:underline py-1 focus-visible-custom">Recursos</a>
+        <a href="/#consensus-blog" class="text-brand-green hover:text-brand-blue hover:underline py-1 focus-visible-custom">Blog de consenso</a>
+        <a href="/#docentes" class="text-brand-green hover:text-brand-blue hover:underline py-1 focus-visible-custom">Docentes</a>
+        <a href="/#familias" class="text-brand-green hover:text-brand-blue hover:underline py-1 focus-visible-custom">Familias</a>
+        <a href="/#directorio" class="text-brand-green hover:text-brand-blue hover:underline py-1 focus-visible-custom">Directorio Oficial</a>
+      </nav>
+      <a href="/" class="auth-back-link focus-visible-custom">
+        Volver al portal <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content" class="auth-main">
+    <section class="auth-intro" aria-labelledby="auth-intro-title">
+      <div class="auth-intro-content">
+        <p class="auth-intro-eyebrow">COMUNIDAD EDUCATIVA</p>
+        <h1 id="auth-intro-title">Un espacio para compartir y acompañar</h1>
+        <p class="auth-intro-description">Tu cuenta te permite publicar recursos útiles y administrar únicamente los materiales que compartes.</p>
+        <ol class="auth-steps">
+          <li>
+            <span aria-hidden="true">1</span>
+            <div><strong>Crea tu cuenta</strong><small>Usa tus datos y acepta los términos.</small></div>
+          </li>
+          <li>
+            <span aria-hidden="true">2</span>
+            <div><strong>Verifica tu correo</strong><small>Ingresa el código de 6 dígitos.</small></div>
+          </li>
+          <li>
+            <span aria-hidden="true">3</span>
+            <div><strong>Comparte recursos</strong><small>Publica materiales sin datos privados.</small></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="auth-side" aria-label="Acceso a tu cuenta">
+      <div class="auth-card">
+        <div id="auth-tabs" class="auth-tabs" role="group" aria-label="Tipo de acceso">
+          <button id="show-login" type="button" class="auth-tab focus-visible-custom" aria-pressed="true">Iniciar sesión</button>
+          <button id="show-register" type="button" class="auth-tab focus-visible-custom" aria-pressed="false">Crear cuenta</button>
+        </div>
+        <div class="auth-card-content">
+          <div class="auth-card-heading">
+            <p id="auth-eyebrow">BIENVENIDO DE NUEVO</p>
+            <h2 id="auth-title">Accede a tu cuenta</h2>
+            <p id="auth-description">Ingresa con tu correo verificado.</p>
+          </div>
+
+      <form id="login-form" class="auth-form">
+        <div>
+          <label for="login-email" class="mb-1 block text-sm font-semibold text-gray-700">Correo electrónico</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" maxlength="254" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+        </div>
+        <div>
+          <label for="login-password" class="mb-1 block text-sm font-semibold text-gray-700">Contraseña</label>
+          <div class="relative">
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required class="w-full rounded-lg border border-gray-300 p-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+            <button type="button" class="password-visibility-toggle absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-brand-green focus-visible-custom" data-password-toggle aria-controls="login-password" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">
+              <i data-lucide="eye" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="w-full rounded-lg bg-brand-blue px-4 py-3 font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">
+          Entrar
+        </button>
+        <button id="login-forgot-password" type="button" class="auth-forgot-password focus-visible-custom">¿Olvidaste tu contraseña?</button>
+      </form>
+
+      <dialog id="forgot-password-dialog" class="auth-reset-dialog" aria-labelledby="forgot-password-title" aria-describedby="forgot-password-description">
+        <div class="auth-reset-dialog-content">
+          <div class="auth-reset-dialog-heading">
+            <h2 id="forgot-password-title">Restablecer contraseña</h2>
+            <button id="forgot-password-close" type="button" class="focus-visible-custom" aria-label="Cerrar ventana de restablecimiento">Cerrar</button>
+          </div>
+          <p id="forgot-password-description">Escribe el correo de tu cuenta. Si está asociado a una cuenta, recibirás un enlace para elegir una contraseña nueva.</p>
+          <form id="forgot-password-form" class="auth-form">
+            <div>
+              <label for="forgot-password-email">Correo electrónico</label>
+              <input id="forgot-password-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="forgot-password-email-help">
+              <p id="forgot-password-email-help" class="mt-1 text-xs text-gray-600">El enlace vence en 30 minutos y solo puede usarse una vez.</p>
+            </div>
+            <button id="forgot-password-submit" type="submit" class="focus-visible-custom">Enviar instrucciones</button>
+          </form>
+          <p id="forgot-password-feedback" class="auth-reset-feedback" role="status" aria-live="polite"></p>
+        </div>
+      </dialog>
+
+      <form id="register-form" class="auth-form hidden">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label for="register-first-name" class="mb-1 block text-sm font-semibold text-gray-700">Nombre</label>
+            <input id="register-first-name" name="firstName" type="text" autocomplete="given-name" maxlength="80" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+          </div>
+          <div>
+            <label for="register-last-name" class="mb-1 block text-sm font-semibold text-gray-700">Apellido</label>
+            <input id="register-last-name" name="lastName" type="text" autocomplete="family-name" maxlength="80" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+          </div>
+        </div>
+        <div>
+          <label for="register-email" class="mb-1 block text-sm font-semibold text-gray-700">Correo electrónico</label>
+          <input id="register-email" name="email" type="email" autocomplete="email" maxlength="254" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+        </div>
+        <div>
+          <label for="register-password" class="mb-1 block text-sm font-semibold text-gray-700">Contraseña</label>
+          <div class="relative">
+            <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="120" required aria-describedby="password-requirement" class="w-full rounded-lg border border-gray-300 p-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+            <button type="button" class="password-visibility-toggle absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-brand-green focus-visible-custom" data-password-toggle aria-controls="register-password" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">
+              <i data-lucide="eye" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p id="password-requirement" class="mt-1 text-xs text-gray-600">Usa entre 8 y 120 caracteres.</p>
+        </div>
+        <div>
+          <label for="register-password-confirm" class="mb-1 block text-sm font-semibold text-gray-700">Confirmar contraseña</label>
+          <div class="relative">
+            <input id="register-password-confirm" name="passwordConfirm" type="password" autocomplete="new-password" minlength="10" maxlength="128" required aria-describedby="password-requirement" class="w-full rounded-lg border border-gray-300 p-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+            <button type="button" class="password-visibility-toggle absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 hover:text-brand-green focus-visible-custom" data-password-toggle aria-controls="register-password-confirm" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">
+              <i data-lucide="eye" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Te enviaremos un código de 6 dígitos a tu correo para verificarlo. No lo compartas con nadie.</p>
+        <aside class="auth-privacy-notice" role="note" aria-labelledby="privacy-notice-title">
+          <i data-lucide="shield-alert" aria-hidden="true"></i>
+          <div>
+            <strong id="privacy-notice-title">Protege la privacidad de tus estudiantes</strong>
+            <p>Los recursos publicados pueden ser vistos y descargados por otras personas. No incluyas nombres, fotos, diagnósticos, teléfonos ni expedientes; divulgarlos puede exponer la seguridad y privacidad de un estudiante. Comparte solo materiales autorizados y anonimizados.</p>
+          </div>
+        </aside>
+        <details class="rounded-lg border border-gray-200 px-4 py-3">
+          <summary class="cursor-pointer font-semibold text-brand-green focus-visible-custom">Leer términos y condiciones</summary>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+            <li>Debes verificar tu correo antes de iniciar sesión y subir recursos.</li>
+            <li>Los recursos y archivos que publiques podrán ser consultados por otras personas.</li>
+            <li>Sube solo materiales que tengas permiso para compartir y evita incluir datos personales o confidenciales.</li>
+            <li>Puedes editar o eliminar los recursos que hayas subido desde tu cuenta.</li>
+          </ul>
+        </details>
+        <div>
+          <div class="flex items-start gap-3">
+            <input id="terms-accepted" name="termsAccepted" type="checkbox" value="true" required class="mt-1 h-4 w-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+            <label for="terms-accepted" class="text-sm text-gray-700">
+              Acepto los términos y condiciones y confirmo que tengo derecho a compartir los materiales que publique.
+            </label>
+          </div>
+          <p id="terms-visibility-note" class="mt-2 text-xs text-gray-600">Ten en cuenta que los recursos publicados son visibles públicamente.</p>
+        </div>
+        <button type="submit" class="w-full rounded-lg bg-brand-blue px-4 py-3 font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">
+          Registrarme
+        </button>
+      </form>
+
+      <form id="verification-form" class="auth-form hidden">
+        <div class="auth-verification-notice" role="note">
+          <i data-lucide="mail-check" aria-hidden="true"></i>
+          <div>
+            <p id="verification-email-notice">Ingresa el correo donde recibiste el código de verificación.</p>
+            <p>El código vence en 10 minutos. Tienes hasta 5 intentos.</p>
+            <p><strong>No compartas el código.</strong> Alguien que lo obtenga podría verificar el correo en tu nombre. Educa Inclusiva nunca te lo pedirá.</p>
+          </div>
+        </div>
+        <div>
+          <label for="verification-email">Correo electrónico</label>
+          <input id="verification-email" name="email" type="email" autocomplete="email" maxlength="254" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+        </div>
+        <div>
+          <label for="verification-code">Código de verificación</label>
+          <input id="verification-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" required aria-describedby="verification-code-help" class="auth-code-input w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+          <p id="verification-code-help" class="mt-1 text-xs text-gray-600">Escribe los 6 dígitos que recibiste por correo.</p>
+        </div>
+        <button type="submit" class="w-full rounded-lg bg-brand-blue px-4 py-3 font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">Verificar correo</button>
+        <div class="auth-verification-actions">
+          <button id="verification-resend" type="button" class="focus-visible-custom">Reenviar código</button>
+          <button id="verification-back-to-register" type="button" class="focus-visible-custom">Volver al registro</button>
+        </div>
+      </form>
+
+          <p id="auth-switch-prompt" class="auth-switch-prompt">
+            <span id="auth-switch-text">¿Aún no tienes cuenta?</span>
+            <button id="auth-switch-link" type="button" class="focus-visible-custom">Crear cuenta</button>
+          </p>
+          <p id="auth-feedback" class="auth-feedback hidden rounded-lg bg-blue-50 p-3 text-sm" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t border-gray-200 py-4 px-4 text-xs text-gray-600">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+    
+      <p class="text-gray-500">Educa Inclusiva Panamá © 2026</p>
+    </div>
+  </footer>
+
+  <script src="accessibility-preferences.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educa Inclusiva Panamá | Portal de Recursos Pedagógicos Accesibles</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#174C43',
+              greenLight: '#23695d',
+              blue: '#245EAA',
+              blueDark: '#1a457d',
+              yellow: '#F2C66D',
+              yellowDark: '#d9a944',
+              bgLight: '#F5F7F8',
+              surface: '#FFFFFF',
+              text: '#1F2937'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-brand-bgLight text-brand-text font-sans antialiased min-h-screen flex flex-col transition-all duration-200">
+
+  <!-- Enlace de salto rápido para accesibilidad por teclado -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:p-4 focus:bg-brand-yellow focus:text-brand-green focus:font-bold focus:rounded-md focus:shadow-lg">
+    Saltar al contenido principal
+  </a>
+
+  <!-- Acceso de accesibilidad: primero en el orden de navegación -->
+  <div id="accessibility-widget" role="region" aria-label="Acceso rápido de accesibilidad">
+    <button id="accessibility-toggle" type="button" class="flex items-center justify-center rounded-full bg-brand-blue text-white shadow-xl transition hover:bg-brand-blueDark focus-visible-custom" aria-expanded="false" aria-controls="accessibility-menu" aria-label="Abrir menú de accesibilidad">
+      <i data-lucide="person-standing" class="h-7 w-7" aria-hidden="true"></i>
+    </button>
+
+    <div id="accessibility-menu" class="hidden" role="group" aria-labelledby="accessibility-menu-title">
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 id="accessibility-menu-title" class="text-base font-bold text-brand-green">Accesibilidad</h2>
+        <button id="accessibility-menu-close" type="button" class="rounded p-1 text-gray-600 transition hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar menú de accesibilidad">
+          <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="accessibility-controls" role="group" aria-label="Herramientas de accesibilidad web">
+        <button id="btn-text-decrease" class="rounded bg-brand-green/10 text-brand-green font-bold transition hover:bg-brand-green/20 focus-visible-custom" title="Disminuir tamaño de texto" aria-label="Disminuir tamaño de texto">
+          A-
+        </button>
+        <button id="btn-text-reset" class="rounded bg-brand-green/10 text-brand-green transition hover:bg-brand-green/20 focus-visible-custom" title="Restablecer tamaño de texto" aria-label="Restablecer tamaño de texto">
+          Normal
+        </button>
+        <button id="btn-text-increase" class="rounded bg-brand-green/10 text-brand-green font-bold transition hover:bg-brand-green/20 focus-visible-custom" title="Aumentar tamaño de texto" aria-label="Aumentar tamaño de texto">
+          A+
+        </button>
+
+        <div class="accessibility-divider" aria-hidden="true"></div>
+
+        <button id="btn-contrast" class="rounded bg-brand-green/10 text-brand-green flex items-center justify-center gap-2 transition hover:bg-brand-green/20 focus-visible-custom" type="button" title="Cambiar modo de contraste" aria-label="Cambiar modo de contraste; actual: normal" aria-pressed="false">
+          <i data-lucide="sun-moon" class="w-4 h-4" aria-hidden="true"></i>
+          <span>Alto Contraste</span>
+        </button>
+
+        <button id="btn-highlight-links" class="rounded bg-brand-green/10 text-brand-green flex items-center justify-center gap-2 transition hover:bg-brand-green/20 focus-visible-custom" title="Resaltar Enlaces" aria-label="Resaltar enlaces interactivos">
+          <i data-lucide="link" class="w-4 h-4" aria-hidden="true"></i>
+          <span>Resaltar enlaces</span>
+        </button>
+
+        <button id="btn-reduce-motion" class="rounded bg-brand-green/10 text-brand-green flex items-center justify-center gap-2 transition hover:bg-brand-green/20 focus-visible-custom" type="button" aria-pressed="false" title="Desactivar animaciones" aria-label="Desactivar animaciones">
+          <i data-lucide="pause-circle" class="w-4 h-4" aria-hidden="true"></i>
+          <span>Desactivar animaciones</span>
+        </button>
+
+        <div class="accessibility-divider" aria-hidden="true"></div>
+
+        <button id="btn-screen-narrator" class="rounded bg-brand-green/10 text-brand-green flex items-center justify-center gap-2 transition hover:bg-brand-green/20 focus-visible-custom" type="button" aria-pressed="false">
+          <i data-lucide="volume-2" class="w-4 h-4" aria-hidden="true"></i>
+          <span>Activar narrador de pantalla</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section id="screen-narrator-prompt" class="hidden" role="region" aria-labelledby="screen-narrator-title" aria-describedby="screen-narrator-description" aria-live="polite">
+    <h2 id="screen-narrator-title" class="mb-2 text-base font-bold text-brand-green">¿Deseas usar el narrador de pantalla?</h2>
+    <p id="screen-narrator-description" class="mb-4 text-sm text-gray-700">
+      Lee el título y la descripción iniciales; después anuncia los controles al recorrerlos con Tab. Puedes cambiar esta opción desde el menú de accesibilidad. No reemplaza un lector de pantalla del sistema.
+    </p>
+    <div class="flex flex-wrap justify-end gap-2">
+      <button id="screen-narrator-decline" type="button" class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 focus-visible-custom">No, gracias</button>
+      <button id="screen-narrator-accept" type="button" class="rounded-lg bg-brand-blue px-3 py-2 text-sm font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">Sí, activarlo</button>
+    </div>
+  </section>
+
+  <!-- ENCABEZADO INSTITUCIONAL -->
+  <header class="bg-brand-green text-white shadow-md sticky top-0 z-40">
+    <!-- Navegación Principal -->
+    <div class="max-w-7xl mx-auto px-4 py-8 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Logo Accesible -->
+        <div class="w-10 h-10 rounded-lg bg-brand-yellow flex items-center justify-center text-brand-green font-black text-xl shadow" aria-hidden="true">
+          EI
+        </div>
+        <div>
+          <a href="/" class="text-xl md:text-2xl font-bold tracking-tight text-white focus-visible-custom block">
+            Educa Inclusiva <span class="text-brand-yellow font-normal text-lg">Panamá</span>
+          </a>
+          <p class="text-xs text-gray-200 hidden sm:block">Apoyo a la diversidad en MEDUCA e IPHE</p>
+        </div>
+      </div>
+
+      <!-- Menú Desktop -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium" aria-label="Menú principal">
+        <a href="/#recursos" class="hover:text-brand-yellow transition py-1 border-b-2 border-transparent hover:border-brand-yellow focus-visible-custom">Recursos</a>
+        <a href="/#consensus-blog" class="hover:text-brand-yellow transition py-1 border-b-2 border-transparent hover:border-brand-yellow focus-visible-custom">Blog de consenso</a>
+        <a href="/#docentes" class="hover:text-brand-yellow transition py-1 border-b-2 border-transparent hover:border-brand-yellow focus-visible-custom">Docentes</a>
+        <a href="/#familias" class="hover:text-brand-yellow transition py-1 border-b-2 border-transparent hover:border-brand-yellow focus-visible-custom">Familias</a>
+        <a href="/#directorio" class="hover:text-brand-yellow transition py-1 border-b-2 border-transparent hover:border-brand-yellow focus-visible-custom">Directorio Oficial</a>
+        <div id="header-account-actions" class="flex items-center gap-3 border-l border-white/40 pl-5">
+          <a id="header-login-link" href="/auth?mode=login" class="hover:text-brand-yellow transition focus-visible-custom">Iniciar sesión</a>
+          <a id="header-register-link" href="/auth?mode=register" class="rounded-lg bg-brand-yellow px-3 py-2 font-semibold text-brand-green hover:bg-brand-yellowDark focus-visible-custom">Crear cuenta</a>
+          <div id="header-session-controls" class="hidden items-center gap-2">
+            <button id="header-session-name" type="button" class="flex max-w-48 items-center gap-2 truncate text-sm hover:text-brand-yellow hover:underline focus-visible-custom" aria-label="Abrir panel de administración" aria-controls="resource-admin-panel" aria-expanded="false" title="Abrir panel de administración">
+              <i data-lucide="user-round" class="h-4 w-4 shrink-0" aria-hidden="true"></i>
+              <span data-session-name class="truncate"></span>
+            </button>
+            
+            <button type="button" class="btn-logout text-sm font-semibold text-red-300 hover:text-red-200 hover:underline focus-visible-custom ml-1">Cerrar sesión</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Botón Menú Móvil -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 focus-visible-custom" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+        <i data-lucide="menu" class="w-6 h-6" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Menú Desplegable Móvil -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-brand-greenLight border-t border-white/10 px-4 py-3 space-y-2">
+      <a href="/#recursos" class="block py-2 px-3 rounded hover:bg-white/10 font-medium text-white focus-visible-custom">Recursos Pedagógicos</a>
+      <a href="/#consensus-blog" class="block py-2 px-3 rounded hover:bg-white/10 font-medium text-white focus-visible-custom">Blog de Consenso</a>
+      <a href="/#docentes" class="block py-2 px-3 rounded hover:bg-white/10 font-medium text-white focus-visible-custom">Orientación para Docentes</a>
+      <a href="/#familias" class="block py-2 px-3 rounded hover:bg-white/10 font-medium text-white focus-visible-custom">Espacio para Familias</a>
+      <a href="/#directorio" class="block py-2 px-3 rounded hover:bg-white/10 font-medium text-white focus-visible-custom">Directorio Oficial (MEDUCA/IPHE)</a>
+    </div>
+
+    <div class="border-t border-white/10 bg-brand-green px-4 py-2 lg:hidden">
+      <div class="mx-auto flex max-w-7xl items-center justify-end gap-3">
+        <div id="mobile-auth-links" class="flex items-center gap-3">
+          <a id="mobile-header-login-link" href="/auth?mode=login" class="rounded-lg border border-white/50 px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 focus-visible-custom">Iniciar sesión</a>
+          <a id="mobile-header-register-link" href="/auth?mode=register" class="rounded-lg bg-brand-yellow px-3 py-2 text-sm font-semibold text-brand-green hover:bg-brand-yellowDark focus-visible-custom">Crear cuenta</a>
+        </div>
+        <div id="mobile-session-controls" class="hidden items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5 min-w-0">
+            <button id="mobile-session-name" type="button" class="flex max-w-36 items-center gap-1.5 truncate text-sm font-semibold text-white hover:underline focus-visible-custom" aria-label="Abrir panel de administración" aria-controls="resource-admin-panel" aria-expanded="false">
+              <i data-lucide="user-round" class="h-4 w-4 shrink-0" aria-hidden="true"></i>
+              <span data-session-name class="truncate"></span>
+            </button>
+
+          </div>
+          <button type="button" class="btn-logout text-sm font-semibold text-red-300 hover:text-red-200 hover:underline focus-visible-custom shrink-0">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main id="main-content" class="relative isolate flex-grow">
+
+    <!-- Barra de retroceso para vista exclusiva de biblioteca -->
+    <div id="library-back-bar" class="relative z-30 bg-brand-green text-white px-4 py-3 shadow-md" role="navigation" aria-label="Navegación de biblioteca y portal">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <button id="btn-back-from-library" type="button" class="flex items-center gap-2 text-sm font-semibold text-white hover:text-brand-yellow transition focus-visible-custom" aria-label="Volver al portal principal">
+          <i data-lucide="arrow-left" class="w-5 h-5" aria-hidden="true"></i>
+          <span>← Volver al portal</span>
+        </button>
+        <nav class="hidden md:flex items-center gap-4 text-xs font-semibold" aria-label="Secciones rápidas desde biblioteca">
+          <a href="/#consensus-blog" class="text-white hover:text-brand-yellow transition focus-visible-custom">Blog de consenso</a>
+          <a href="/#docentes" class="text-white hover:text-brand-yellow transition focus-visible-custom">Docentes</a>
+          <a href="/#familias" class="text-white hover:text-brand-yellow transition focus-visible-custom">Familias</a>
+          <a href="/#directorio" class="text-white hover:text-brand-yellow transition focus-visible-custom">Directorio</a>
+        </nav>
+        <span class="text-sm font-bold text-brand-yellow hidden lg:inline">Biblioteca de Recursos Educativos</span>
+      </div>
+    </div>
+    
+    <!-- SECCIÓN HERO -->
+    <section class="hero-section text-white py-12 px-4 shadow-inner">
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-brand-yellow text-sm font-semibold border border-white/10">
+          <i data-lucide="book-open-check" class="w-4 h-4" aria-hidden="true"></i>
+          <span>HCI y Diseño Centrado en las Personas</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          Recursos y orientaciones para una educación accesible para todos
+        </h1>
+        
+        <p class="text-base md:text-xl text-gray-100 max-w-2xl mx-auto leading-relaxed">
+          Plataforma centralizada de apoyo a la comunidad educativa panameña. Encuentra fichas adaptadas, guías didácticas y fuentes oficiales verificadas.
+        </p>
+
+        <form id="main-search-form" role="search" class="relative mx-auto max-w-2xl pt-2">
+          <label for="main-search-input" class="sr-only">Buscar recursos educativos por palabra clave</label>
+          <div class="relative">
+            <input
+              type="search"
+              id="main-search-input"
+              placeholder="Buscar por materia, palabra clave (ej. lectura, dislexia, primaria)..."
+              class="w-full rounded-xl border-2 border-transparent py-4 pl-12 pr-28 text-base text-gray-900 shadow-xl placeholder-gray-500 focus:border-brand-yellow focus:outline-none"
+              autocomplete="on"
+            >
+            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" aria-hidden="true"></i>
+            <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-brand-blue px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-blueDark focus-visible-custom">
+              Buscar
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- Video decorativo de fondo para las secciones de contenido -->
+    <video class="sections-background-video" autoplay loop muted playsinline preload="auto" poster="assets/hero-inclusivo.png" aria-hidden="true" tabindex="-1">
+      <source src="assets/Video-discapacitado-main.mp4" type="video/mp4">
+    </video>
+
+    <!-- SECCIÓN DE RECURSOS EDUCATIVOS (FILTROS + GRID) -->
+    <section id="recursos" class="content-section w-full py-10 border-t border-b border-gray-200 card-bg scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="author-profile-view" class="hidden" aria-labelledby="author-profile-heading">
+          <nav class="mb-6 flex items-center justify-between gap-3 border-b border-gray-200 pb-4" aria-label="Navegación del perfil">
+            <a href="#recursos" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">← Volver a recursos</a>
+            <span class="text-sm font-semibold text-gray-600">Perfil público</span>
+          </nav>
+          <p id="author-profile-status" class="mb-4 text-sm text-gray-600" role="status" aria-live="polite"></p>
+          <header id="author-profile-header" class="mb-8 flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:p-7">
+            <img id="author-profile-avatar" src="/assets/resource-iconuserdefault.svg" alt="" width="112" height="112" class="h-24 w-24 shrink-0 rounded-full border border-gray-200 object-cover sm:h-28 sm:w-28">
+            <div class="min-w-0">
+              <h2 id="author-profile-heading" class="text-2xl font-bold text-brand-green"></h2>
+              <p id="author-profile-occupation" class="mt-1 text-sm font-semibold text-brand-blue"></p>
+              <p id="author-profile-bio" class="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-gray-700"></p>
+            </div>
+          </header>
+          <h3 class="mb-4 text-xl font-bold text-brand-green">Recursos publicados</h3>
+          <div id="author-profile-resources" class="space-y-3" role="list"></div>
+          <p id="author-profile-empty" class="hidden rounded-xl border border-gray-200 bg-white p-5 text-sm text-gray-600">Este usuario aún no tiene recursos publicados.</p>
+        </section>
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-gray-200 pb-4">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold text-brand-green flex items-center gap-2">
+            <i data-lucide="folder-open" class="w-7 h-7 text-brand-blue" aria-hidden="true"></i>
+            Biblioteca de Recursos Educativos
+          </h2>
+          <p class="text-gray-600 text-sm md:text-base mt-1">
+            Explora materiales didácticos descargables y adaptaciones probadas en aula.
+          </p>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+          <button id="btn-show-resource-form" type="button" class="rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-greenLight focus-visible-custom">
+            Subir recurso
+          </button>
+          <div id="results-count" class="bg-brand-blue/10 text-brand-blue font-bold px-3 py-1.5 rounded-lg text-sm border border-brand-blue/20 self-start md:self-auto" aria-live="polite">
+            Cargando recursos...
+          </div>
+        </div>
+      </div>
+
+      <form id="resource-upload-form" class="hidden mb-8 space-y-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm card-bg">
+        <h3 id="resource-form-heading" class="text-xl font-bold text-brand-green">Añadir recurso educativo</h3>
+        <input id="resource-id" name="id" type="hidden">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <label for="resource-title" class="mb-1 block text-sm font-semibold text-gray-700">Título</label>
+            <input id="resource-title" name="title" type="text" maxlength="120" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+          </div>
+          <div>
+            <label for="resource-level" class="mb-1 block text-sm font-semibold text-gray-700">Nivel educativo</label>
+            <select id="resource-level" name="level" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="">Selecciona un nivel</option>
+              <option value="Primaria">Educación Primaria</option>
+              <option value="Secundaria">Educación Secundaria</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label for="resource-description" class="mb-1 block text-sm font-semibold text-gray-700">Descripción</label>
+            <textarea id="resource-description" name="description" rows="3" maxlength="500" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none"></textarea>
+          </div>
+          <div>
+            <label for="resource-role" class="mb-1 block text-sm font-semibold text-gray-700">Destinatario</label>
+            <select id="resource-role" name="role" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="">Selecciona un destinatario</option>
+              <option value="Docentes">Docentes</option>
+              <option value="Familias">Familias y cuidadores</option>
+              <option value="Estudiantes">Estudiantes</option>
+            </select>
+          </div>
+          <div>
+            <label for="resource-format" class="mb-1 block text-sm font-semibold text-gray-700">Formato</label>
+            <select id="resource-format" name="format" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="">Selecciona un formato</option>
+              <option value="Ficha imprimible">Ficha imprimible</option>
+              <option value="Guía docente">Guía docente</option>
+              <option value="Actividad hogar">Actividad para el hogar</option>
+              <option value="Documento oficial">Documento oficial</option>
+            </select>
+          </div>
+          <div>
+            <label for="resource-area" class="mb-1 block text-sm font-semibold text-gray-700">Área de apoyo</label>
+            <select id="resource-area" name="area" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="">Selecciona un área</option>
+              <option value="Visual">Apoyo visual / pictogramas</option>
+              <option value="Lectura">Lectura y escritura</option>
+              <option value="Atencion">Atención y enfoque</option>
+              <option value="General">Apoyo pedagógico general</option>
+            </select>
+          </div>
+          <div>
+            <label for="resource-visibility" class="mb-1 block text-sm font-semibold text-gray-700">Visibilidad</label>
+            <select id="resource-visibility" name="visibility" required aria-invalid="false" aria-describedby="resource-visibility-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="public">Público: aparece en listados</option>
+              <option value="unlisted">Enlistado: enlace y usuarios asignados</option>
+              <option value="private">Privado: solo tú puedes verlo</option>
+            </select>
+            <p id="resource-visibility-help" class="mt-1 text-xs text-gray-500">Los recursos enlistados no aparecen en la biblioteca pública.</p>
+          </div>
+          <div id="resource-shared-users-field" class="hidden">
+            <label for="resource-shared-users" class="mb-1 block text-sm font-semibold text-gray-700">Asignar usuarios por correo</label>
+            <input id="resource-shared-users" type="text" autocomplete="off" aria-invalid="false" aria-describedby="resource-shared-users-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none" placeholder="persona@correo.com, otra@correo.com">
+            <p id="resource-shared-users-help" class="mt-1 text-xs text-gray-500">Solo se aceptan cuentas verificadas; separa los correos con comas.</p>
+          </div>
+          <div class="md:col-span-2 grid gap-4 rounded-xl border border-blue-100 bg-blue-50/50 p-4 sm:grid-cols-[9rem_1fr]">
+            <img id="resource-cover-preview" src="/assets/resource-placeholder.svg" alt="Recurso educativo genérico. Contenido multimedia y documentos. Imagen en carga." class="aspect-square w-36 rounded-xl border border-blue-200 bg-white object-cover">
+            <div class="space-y-2">
+              <label for="resource-cover" class="block text-sm font-semibold text-gray-700">Portada o miniatura</label>
+              <input id="resource-cover" name="cover" type="file" accept="image/png,image/jpeg,.png,.jpg,.jpeg" aria-describedby="resource-cover-help resource-cover-feedback" aria-invalid="false" class="w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <p id="resource-cover-help" class="text-xs text-gray-600">Imagen PNG o JPEG de exactamente 500 × 500 px (1:1), máximo 10 MB. Si no adjuntas una, se mostrará la portada genérica.</p>
+              <p id="resource-cover-feedback" class="hidden text-sm font-semibold text-red-700" role="status" aria-live="assertive"></p>
+              <label id="resource-remove-cover-option" class="hidden items-center gap-2 text-sm text-gray-700">
+                <input id="resource-remove-cover" name="removeCover" type="checkbox" value="true" class="h-4 w-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                Usar la portada predeterminada
+              </label>
+            </div>
+          </div>
+          <div class="md:col-span-2">
+            <label for="resource-guidance" class="mb-1 block text-sm font-semibold text-gray-700">Pauta de uso</label>
+            <textarea id="resource-guidance" name="pauta" rows="2" maxlength="1000" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none"></textarea>
+          </div>
+          <div class="md:col-span-2">
+            <label for="resource-sample" class="mb-1 block text-sm font-semibold text-gray-700">Contenido de muestra</label>
+            <textarea id="resource-sample" name="sampleText" rows="2" maxlength="1000" required class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none"></textarea>
+          </div>
+          <div id="resource-existing-files" class="hidden space-y-2 md:col-span-2"></div>
+          <div class="md:col-span-2">
+            <label for="resource-files" class="mb-1 block text-sm font-semibold text-gray-700">Archivos del recurso</label>
+            <input id="resource-files" name="files" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.odt,.ods,.mp4,.webm,.mov,.mp3,.wav,.ogg,.m4a,.png,.jpg,.jpeg,.gif,.webp" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+            <p class="mt-1 text-xs text-gray-500">Hasta 5 archivos, de 200 MB cada uno. PDF, Office, video, audio e imágenes.</p>
+          </div>
+        </div>
+        <p id="resource-upload-feedback" class="hidden text-sm font-semibold text-red-700" role="alert" aria-live="assertive"></p>
+        <div class="flex justify-end gap-2">
+          <button id="btn-cancel-resource-upload" type="button" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">
+            Cancelar
+          </button>
+          <button type="submit" class="rounded-lg bg-brand-blue px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">
+            Guardar recurso
+          </button>
+        </div>
+      </form>
+
+      <section id="resource-admin-panel" class="hidden mb-8 rounded-2xl border border-brand-green/20 bg-white p-6 shadow-sm card-bg scroll-mt-24" aria-labelledby="resource-admin-heading">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 id="resource-admin-heading" class="text-xl font-bold text-brand-green">Panel de administración</h3>
+            <p class="mt-1 text-sm text-gray-600">Administra tus datos de perfil y los recursos que compartes.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="btn-close-admin-panel" type="button" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">
+              ← Volver al portal
+            </button>
+            <button id="btn-admin-add-resource" type="button" class="shrink-0 rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-greenLight focus-visible-custom">
+              + Subir recurso
+            </button>
+          </div>
+        </div>
+        <p id="resource-admin-status" class="sr-only" role="status" aria-live="polite"></p>
+
+        <!-- Sección de Perfil de Usuario -->
+        <div id="admin-user-profile-section" class="mt-6 rounded-xl border border-gray-200 bg-gray-50/70 p-4 sm:p-5">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <img id="admin-profile-avatar" src="/assets/resource-iconuserdefault.svg" alt="" width="48" height="48" class="h-12 w-12 shrink-0 rounded-full border border-gray-200 object-cover">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 id="admin-profile-name" class="truncate text-base font-bold text-brand-green"></h4>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">
+                    <i data-lucide="check-circle-2" class="h-3 w-3" aria-hidden="true"></i> Verificado
+                  </span>
+                </div>
+                <p id="admin-profile-email" class="truncate text-xs text-gray-600 mt-0.5"></p>
+              </div>
+            </div>
+            <button id="btn-toggle-profile-editor" type="button" class="inline-flex items-center justify-center gap-2 rounded-lg border border-brand-green px-4 py-2 text-xs font-semibold text-brand-green hover:bg-brand-green/10 focus-visible-custom self-start sm:self-auto" aria-expanded="false" aria-controls="profile-editor-form">
+              <i data-lucide="user-pen" class="h-4 w-4" aria-hidden="true"></i>
+              <span id="btn-toggle-profile-editor-text">Editar perfil</span>
+            </button>
+          </div>
+
+          <!-- Formulario de Edición de Perfil -->
+          <form id="profile-editor-form" class="hidden mt-5 space-y-4 rounded-xl border border-gray-200 bg-white p-4 shadow-xl sm:p-5" role="dialog" aria-modal="false" aria-labelledby="profile-editor-heading" novalidate>
+            <input id="profile-remove-avatar" name="removeAvatar" type="hidden" value="false">
+            <div class="flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
+              <h5 id="profile-editor-heading" class="text-sm font-bold text-brand-green flex items-center gap-2">
+                <i data-lucide="user-cog" class="h-4 w-4 text-brand-blue" aria-hidden="true"></i>
+                Editar datos de perfil
+              </h5>
+              <button id="btn-close-profile-editor" type="button" class="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar editor de perfil">Cerrar</button>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="profile-first-name" class="mb-1 block text-xs font-semibold text-gray-700">Nombre</label>
+                <input id="profile-first-name" name="firstName" type="text" autocomplete="given-name" maxlength="80" required aria-describedby="profile-first-name-error" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                <p id="profile-first-name-error" class="hidden mt-1 text-xs text-red-700" aria-live="polite"></p>
+              </div>
+              <div>
+                <label for="profile-last-name" class="mb-1 block text-xs font-semibold text-gray-700">Apellido</label>
+                <input id="profile-last-name" name="lastName" type="text" autocomplete="family-name" maxlength="80" required aria-describedby="profile-last-name-error" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                <p id="profile-last-name-error" class="hidden mt-1 text-xs text-red-700" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div>
+              <label for="profile-email" class="mb-1 block text-xs font-semibold text-gray-700">Correo electrónico</label>
+              <input id="profile-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="profile-email-help profile-email-error" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <p id="profile-email-help" class="mt-1 text-xs text-gray-500">Para cambiarlo, enviaremos un código de verificación al correo actual.</p>
+              <p id="profile-email-error" class="hidden mt-1 text-xs font-semibold text-red-700" aria-live="polite"></p>
+              <div class="mt-2 flex flex-wrap items-center gap-2">
+                <button id="btn-send-email-change-code" type="button" class="hidden rounded-lg border border-brand-blue px-3 py-2 text-xs font-semibold text-brand-blue hover:bg-blue-50 focus-visible-custom">Enviar código al correo actual</button>
+                <a id="profile-support-link" class="text-xs font-semibold text-brand-blue underline focus-visible-custom" href="mailto:">¿Necesitas ayuda? Contacta a soporte</a>
+              </div>
+              <div id="profile-email-code-group" class="hidden mt-3">
+                <label for="profile-email-code" class="mb-1 block text-xs font-semibold text-gray-700">Código enviado al correo actual</label>
+                <input id="profile-email-code" name="emailChangeCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" aria-describedby="profile-email-code-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                <p id="profile-email-code-help" class="mt-1 text-xs text-gray-500">Ingresa el código de 6 dígitos para confirmar el cambio.</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="profile-occupation" class="mb-1 block text-xs font-semibold text-gray-700">Ocupación</label>
+                <select id="profile-occupation" name="occupation" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                  <option value="">Selecciona una ocupación</option>
+                  <option>Estudiante</option>
+                  <option>Profesor</option>
+                  <option>Licenciado</option>
+                  <option>Docente</option>
+                  <option>Psicólogo</option>
+                  <option>Familiar</option>
+                  <option value="custom">Otra ocupación</option>
+                </select>
+                <label for="profile-occupation-custom" class="sr-only">Escribe tu ocupación</label>
+                <input id="profile-occupation-custom" type="text" maxlength="80" autocomplete="organization-title" class="hidden mt-2 w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              </div>
+              <div>
+                <label for="profile-bio" class="mb-1 block text-xs font-semibold text-gray-700">Descripción breve</label>
+                <textarea id="profile-bio" name="bio" rows="3" maxlength="500" aria-describedby="profile-bio-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none"></textarea>
+                <p id="profile-bio-help" class="mt-1 text-xs text-gray-500">Hasta 500 caracteres. Se mostrará en tu perfil público.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-gray-200 p-3">
+              <label for="profile-avatar-input" class="mb-2 block text-xs font-semibold text-gray-700">Imagen de perfil</label>
+              <div class="flex flex-wrap items-center gap-3">
+                <img id="profile-avatar-preview" src="/assets/resource-iconuserdefault.svg" alt="Vista previa de la imagen de perfil" width="72" height="72" class="h-18 w-18 rounded-full border border-gray-200 object-cover">
+                <div class="min-w-0 flex-1">
+                  <input id="profile-avatar-input" name="avatar" type="file" accept="image/png,image/jpeg,image/gif,image/webp" aria-describedby="profile-avatar-help profile-avatar-error" class="block w-full text-sm text-gray-700 file:mr-3 file:rounded-lg file:border-0 file:bg-brand-blue file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white focus-visible-custom">
+                  <p id="profile-avatar-help" class="mt-1 text-xs text-gray-500">PNG, JPEG, GIF o WebP; máximo 20 MB y exactamente 500 × 500 píxeles.</p>
+                  <p id="profile-avatar-error" class="hidden mt-1 text-xs font-semibold text-red-700" role="alert"></p>
+                  <button id="btn-remove-profile-avatar" type="button" class="mt-2 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">Quitar foto de perfil</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cambio opcional de contraseña -->
+            <details id="profile-password-details" class="rounded-lg border border-gray-200 bg-white p-3 text-sm">
+              <summary class="cursor-pointer font-semibold text-brand-green focus-visible-custom select-none">
+                Cambiar contraseña (opcional)
+              </summary>
+              <div class="mt-3 space-y-3 pt-2 border-t border-gray-100">
+                <div>
+                  <label for="profile-current-password" class="mb-1 block text-xs font-semibold text-gray-700">Contraseña actual</label>
+                  <input id="profile-current-password" name="currentPassword" type="password" autocomplete="current-password" maxlength="128" aria-describedby="profile-current-password-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                  <p id="profile-current-password-help" class="text-xs text-gray-500" aria-live="polite"></p>
+                </div>
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div>
+                    <label for="profile-new-password" class="mb-1 block text-xs font-semibold text-gray-700">Nueva contraseña</label>
+                    <input id="profile-new-password" name="newPassword" type="password" autocomplete="new-password" minlength="10" maxlength="128" aria-describedby="profile-new-password-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                    <p id="profile-new-password-help" class="sr-only" aria-live="polite"></p>
+                  </div>
+                  <div>
+                    <label for="profile-new-password-confirm" class="mb-1 block text-xs font-semibold text-gray-700">Confirmar nueva contraseña</label>
+                    <input id="profile-new-password-confirm" name="newPasswordConfirm" type="password" autocomplete="new-password" minlength="10" maxlength="128" aria-describedby="profile-new-password-confirm-help" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+                    <p id="profile-new-password-confirm-help" class="sr-only" aria-live="polite"></p>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500">La nueva contraseña debe tener entre 10 y 128 caracteres.</p>
+              </div>
+            </details>
+
+            <p id="profile-editor-feedback" class="hidden rounded-lg p-3 text-xs font-semibold" role="status" aria-live="polite"></p>
+            <p id="profile-editor-session-closed" class="hidden rounded-lg bg-amber-50 p-3 text-xs font-semibold text-amber-900" role="status" aria-live="polite">La contraseña se actualizó y la sesión se cerró en todos los dispositivos, incluido este. Inicia sesión de nuevo con tu nueva contraseña.</p>
+
+            <div class="flex justify-end gap-2 pt-2">
+              <button id="btn-cancel-profile-edit" type="button" class="rounded-lg border border-gray-300 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">
+                Cancelar
+              </button>
+              <button id="btn-save-profile" type="submit" class="rounded-lg bg-brand-blue px-4 py-2 text-xs font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">
+                Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <h4 class="mt-8 border-b border-gray-100 pb-2 font-semibold text-brand-green">Mis recursos</h4>
+        <div id="resource-admin-list" class="mt-3 space-y-3" role="list" aria-live="polite" aria-relevant="additions text"></div>
+        <section id="shared-resources-section" class="mt-8 hidden" aria-labelledby="shared-resources-heading">
+          <h4 id="shared-resources-heading" class="border-b border-gray-100 pb-2 font-semibold text-brand-green">Compartidos conmigo</h4>
+          <div id="shared-resources-list" class="mt-3 space-y-3" role="list" aria-live="polite"></div>
+        </section>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <!-- PANEL DE FILTROS LATERAL -->
+        <aside class="lg:col-span-1 bg-white p-5 rounded-2xl shadow-sm border border-gray-200 self-start space-y-6 card-bg">
+          <div class="flex items-center justify-between border-b pb-3">
+            <h3 class="font-bold text-lg text-brand-green flex items-center gap-2">
+              <i data-lucide="sliders" class="w-5 h-5 text-brand-blue" aria-hidden="true"></i>
+              Filtros de Búsqueda
+            </h3>
+            <button id="btn-reset-filters" class="text-xs text-brand-blue hover:underline font-semibold focus-visible-custom">
+              Limpiar todo
+            </button>
+          </div>
+
+          <!-- Filtro 1: Nivel Educativo -->
+          <div>
+            <label for="filter-level" class="block font-semibold text-sm text-gray-700 mb-2">Nivel Educativo</label>
+            <select id="filter-level" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="all">Todos los niveles</option>
+              <option value="Primaria">Educación Primaria</option>
+              <option value="Secundaria">Educación Secundaria</option>
+            </select>
+          </div>
+
+          <!-- Filtro 2: Población / Rol -->
+          <div>
+            <label for="filter-role" class="block font-semibold text-sm text-gray-700 mb-2">Población / Destinatario</label>
+            <select id="filter-role" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="all">Todos los destinatarios</option>
+              <option value="Docentes">Docentes</option>
+              <option value="Familias">Familias y Cuidadores</option>
+              <option value="Estudiantes">Estudiantes</option>
+            </select>
+          </div>
+
+          <!-- Filtro 3: Formato -->
+          <div>
+            <label for="filter-format" class="block font-semibold text-sm text-gray-700 mb-2">Formato del Material</label>
+            <select id="filter-format" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="all">Todos los formatos</option>
+              <option value="Ficha imprimible">Ficha Imprimible</option>
+              <option value="Guía docente">Guía Docente</option>
+              <option value="Actividad hogar">Actividad para el Hogar</option>
+              <option value="Documento oficial">Documento Oficial</option>
+            </select>
+          </div>
+
+          <!-- Filtro 4: Necesidad / Área de Apoyo -->
+          <div>
+            <label for="filter-area" class="block font-semibold text-sm text-gray-700 mb-2">Área / Necesidad de Apoyo</label>
+            <select id="filter-area" class="w-full p-2.5 rounded-lg border border-gray-300 text-sm focus:ring-2 focus:ring-brand-blue focus:outline-none">
+              <option value="all">Todas las áreas</option>
+              <option value="Visual">Apoyo Visual / Pictogramas</option>
+              <option value="Lectura">Lectura y Escritura (Dislexia)</option>
+              <option value="Atencion">Atención y Enfoque (TDAH)</option>
+              <option value="General">Apoyo Pedagógico General</option>
+            </select>
+          </div>
+        </aside>
+
+        <!-- GRID DE TARJETAS EN TIEMPO REAL -->
+        <div class="lg:col-span-3">
+          <form id="resource-search-form" role="search" class="relative mb-6 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm card-bg">
+            <label for="search-input" class="sr-only">Buscar recursos educativos por palabra clave</label>
+            <div class="relative">
+              <input
+                type="search"
+                id="search-input"
+                placeholder="Buscar por materia, palabra clave (ej. lectura, dislexia, primaria)..."
+                class="w-full rounded-xl border-2 border-gray-200 bg-white py-3 pl-12 pr-28 text-base text-gray-900 shadow-sm placeholder-gray-500 focus:border-brand-blue focus:outline-none"
+                autocomplete="on"
+              >
+              <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" aria-hidden="true"></i>
+              <button
+                type="submit"
+                id="search-clear-btn"
+                class="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-brand-blue px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-blueDark focus-visible-custom"
+              >
+                Buscar
+              </button>
+            </div>
+            <p class="mt-2 text-xs text-gray-600">
+              Sugerencias:
+              <button type="button" onclick="quickFilter('Dislexia')" class="underline hover:text-brand-blue focus-visible-custom">Dislexia</button>,
+              <button type="button" onclick="quickFilter('Matemáticas')" class="underline hover:text-brand-blue focus-visible-custom">Matemáticas</button>,
+              <button type="button" onclick="quickFilter('Visual')" class="underline hover:text-brand-blue focus-visible-custom">Apoyo Visual</button>
+            </p>
+          </form>
+          <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-live="polite">
+            <!-- Renderizado dinámico vía JavaScript -->
+          </div>
+
+          <!-- Estado Vacío (Sin resultados) -->
+          <div id="empty-state" class="hidden bg-white p-8 rounded-2xl text-center border border-gray-200 card-bg space-y-4">
+            <div class="w-16 h-16 mx-auto bg-gray-100 text-gray-400 rounded-full flex items-center justify-center">
+              <i data-lucide="search-x" class="w-8 h-8" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">No se encontraron recursos</h3>
+            <p class="text-sm text-gray-600 max-w-md mx-auto">
+              Intenta cambiar los términos de búsqueda o ajustar los filtros seleccionados para encontrar más opciones.
+            </p>
+            <button onclick="resetFilters()" class="px-4 py-2 bg-brand-blue text-white rounded-lg font-medium text-sm hover:bg-brand-blueDark transition focus-visible-custom">
+              Restablecer Filtros
+            </button>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </section>
+
+    <section id="consensus-blog" class="content-section w-full border-b border-gray-200 py-12 card-bg scroll-mt-24" aria-labelledby="consensus-blog-heading">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-blue">Comunidad educativa</span>
+            <h2 id="consensus-blog-heading" class="mt-1 text-2xl font-bold text-brand-green md:text-3xl">Blog de consenso</h2>
+            <p class="mt-1 max-w-2xl text-sm text-gray-600">Comparte ideas, acuerdos y experiencias educativas. Puedes responder a cada aporte para construir conversaciones en comunidad.</p>
+          </div>
+          <button id="btn-new-general-consensus" type="button" class="rounded-lg bg-brand-blue px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">
+            + Nueva entrada
+          </button>
+        </div>
+        <form id="general-consensus-form" class="hidden mb-6 space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+          <label class="block text-sm font-semibold text-gray-700" for="general-consensus-title">Título de la entrada</label>
+          <input id="general-consensus-title" name="title" type="text" maxlength="120" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+          <label class="block text-sm font-semibold text-gray-700" for="general-consensus-body">Tu aporte</label>
+          <textarea id="general-consensus-body" name="body" rows="4" maxlength="4000" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"></textarea>
+          <p id="general-consensus-feedback" class="hidden text-sm font-semibold text-red-700" role="alert" aria-live="assertive"></p>
+          <div class="flex justify-end gap-2">
+            <button type="button" id="btn-cancel-general-consensus" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">Cancelar</button>
+            <button type="submit" class="rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-greenLight focus-visible-custom">Publicar aporte</button>
+          </div>
+        </form>
+        <p id="general-consensus-status" class="sr-only" role="status" aria-live="polite">Cargando entradas de consenso.</p>
+        <div id="general-consensus-list" class="space-y-4" role="list" aria-live="polite" aria-busy="true"></div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN ESTRATEGIAS: DOCENTES Y FAMILIAS (SECCIONES DE ACORDEÓN) -->
+    <section class="content-section py-12 border-t border-b border-gray-200 card-bg">
+      <div class="max-w-7xl mx-auto px-4 space-y-12">
+        
+        <!-- Pestañas u Orientaciones para Docentes -->
+        <div id="docentes" class="scroll-mt-24">
+          <div class="max-w-3xl mb-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-blue">Orientación Pedagógica</span>
+            <h2 class="text-2xl md:text-3xl font-bold text-brand-green flex items-center gap-2 mt-1">
+              <i data-lucide="graduation-cap" class="w-7 h-7 text-brand-blue" aria-hidden="true"></i>
+              Estrategias Inclusivas para Aula (Docentes)
+            </h2>
+            <p class="text-gray-600 text-sm mt-1">
+              Recomendaciones prácticas basadas en el Diseño Universal para el Aprendizaje (DUA).
+            </p>
+          </div>
+
+          <div class="space-y-4 max-w-4xl">
+            <!-- Accordion Item 1 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <button class="accordion-header w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex items-center justify-between font-bold text-brand-green text-base focus-visible-custom" aria-expanded="false" aria-controls="acc-doc-1">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="layout-grid" class="w-5 h-5 text-brand-blue" aria-hidden="true"></i>
+                  1. Apoyos Visuales y Asientos Flexibles
+                </span>
+                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" aria-hidden="true"></i>
+              </button>
+              <div id="acc-doc-1" class="accordion-content hidden p-4 bg-white text-sm text-gray-700 leading-relaxed border-t border-gray-100 space-y-2">
+                <p><strong>Ubicación en el aula:</strong> Sitúa a estudiantes con dificultades de atención o visión cerca del frente de la clase, lejos de distractores directos (ventanas principales o puertas concurridas).</p>
+                <p><strong>Organizadores gráficos:</strong> Presenta la agenda del día visualmente en el tablero con pictogramas o palabras clave secuenciadas.</p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 2 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <button class="accordion-header w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex items-center justify-between font-bold text-brand-green text-base focus-visible-custom" aria-expanded="false" aria-controls="acc-doc-2">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-blue" aria-hidden="true"></i>
+                  2. Instrucciones Claras y Paso a Paso
+                </span>
+                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" aria-hidden="true"></i>
+              </button>
+              <div id="acc-doc-2" class="accordion-content hidden p-4 bg-white text-sm text-gray-700 leading-relaxed border-t border-gray-100 space-y-2">
+                <p>Fragmenta las tareas complejas en micro-pasos ejecutables (máximo 2 a 3 instrucciones continuas).</p>
+                <p>Pide a un estudiante que repita con sus propias palabras la consigna para verificar la comprensión antes de comenzar la actividad.</p>
+              </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <button class="accordion-header w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex items-center justify-between font-bold text-brand-green text-base focus-visible-custom" aria-expanded="false" aria-controls="acc-doc-3">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="clock" class="w-5 h-5 text-brand-blue" aria-hidden="true"></i>
+                  3. Pausas Activas y Elección de Formatos
+                </span>
+                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform" aria-hidden="true"></i>
+              </button>
+              <div id="acc-doc-3" class="accordion-content hidden p-4 bg-white text-sm text-gray-700 leading-relaxed border-t border-gray-100 space-y-2">
+                <p>Permite pausas breves de autorregulación sensory-motora de 1 a 2 minutos en jornadas de trabajo extendidas.</p>
+                <p>Ofrece flexibilidad en la evaluación: los estudiantes pueden responder mediante exposición oral, mapa conceptual o trabajo escrito breve.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orientaciones para Familias -->
+        <div id="familias" class="scroll-mt-24 pt-6 border-t border-gray-100">
+          <div class="max-w-3xl mb-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-blue">Acompañamiento en el Hogar</span>
+            <h2 class="text-2xl md:text-3xl font-bold text-brand-green flex items-center gap-2 mt-1">
+              <i data-lucide="home" class="w-7 h-7 text-brand-blue" aria-hidden="true"></i>
+              Guía y Rutinas para Familias
+            </h2>
+            <p class="text-gray-600 text-sm mt-1">
+              Pautas estructuradas en lenguaje sencillo para apoyar las tareas y el desarrollo afectivo en casa.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-5 rounded-xl border border-gray-200 bg-brand-bgLight space-y-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold">
+                1
+              </div>
+              <h3 class="font-bold text-brand-green text-lg">Rutina Visual de Tareas</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Establece un horario fijo con imágenes o dibujos sencillos para organizar el lavado de manos, estudio, descanso y tiempo libre.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl border border-gray-200 bg-brand-bgLight space-y-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold">
+                2
+              </div>
+              <h3 class="font-bold text-brand-green text-lg">Espacio de Estudio Limpio</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Mantén sobre la mesa únicamente el cuaderno y lápiz necesarios para la tarea actual, reduciendo elementos distractores o televisores encendidos.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl border border-gray-200 bg-brand-bgLight space-y-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold">
+                3
+              </div>
+              <h3 class="font-bold text-brand-green text-lg">Refuerzo Positivo</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Reconoce el esfuerzo y avance en el proceso, no solo el resultado final. Utiliza frases motivadoras y celebra los pequeños logros diarios.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DIRECTORIO INSTITUCIONAL -->
+    <section id="directorio" class="content-section w-full py-12 border-t border-b border-gray-200 card-bg scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <h2 class="text-2xl md:text-3xl font-bold text-brand-green flex items-center justify-center gap-2">
+            <i data-lucide="building-2" class="w-7 h-7 text-brand-blue" aria-hidden="true"></i>
+            Directorio Oficial e Institucional
+          </h2>
+          <p class="text-gray-600 text-sm mt-2">
+            Enlaces verificados a las entidades reguladoras de la Educación Especial e Inclusiva en Panamá.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- MEDUCA -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm card-bg flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-brand-green text-brand-yellow font-black flex items-center justify-center text-sm shadow">
+                  PA
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-brand-green">MEDUCA</h3>
+                  <p class="text-xs text-gray-500">Ministerio de Educación de Panamá</p>
+                </div>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Dirección Nacional de Educación Especial. Normativas, circulares pedagógicas y programas de inclusión educativa nacional.
+              </p>
+            </div>
+            <a 
+              href="https://www.meduca.gob.pa/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-brand-green hover:bg-brand-greenLight text-white rounded-lg font-medium text-sm transition focus-visible-custom"
+            >
+              <span>Visitar Sitio Oficial MEDUCA</span>
+              <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <!-- IPHE -->
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm card-bg flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-brand-blue text-white font-black flex items-center justify-center text-sm shadow">
+                  IPHE
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-brand-green">IPHE</h3>
+                  <p class="text-xs text-gray-500">Instituto Panameño de Habilitación Especial</p>
+                </div>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Servicios habilitatorios, apoyos técnicos especializados, publicaciones pedagógicas y recursos para la inclusión escolar.
+              </p>
+            </div>
+            <a 
+              href="https://iphe.gob.pa/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-brand-blue hover:bg-brand-blueDark text-white rounded-lg font-medium text-sm transition focus-visible-custom"
+            >
+              <span>Visitar Sitio Oficial IPHE</span>
+              <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <p id="profile-session-closed-banner" class="hidden mx-auto max-w-7xl px-4 py-4 text-sm font-semibold text-amber-900" role="status" aria-live="polite"></p>
+
+  <dialog id="profile-resource-details-dialog" class="profile-resource-details-dialog rounded-2xl border border-gray-200 bg-white p-0 text-gray-800 shadow-2xl backdrop:bg-black/60" aria-labelledby="profile-resource-details-heading">
+    <div class="p-5 sm:p-6">
+      <div class="mb-4 flex items-start justify-between gap-4">
+        <div>
+          <h2 id="profile-resource-details-heading" class="text-lg font-bold text-brand-green">Detalles de publicación</h2>
+          <p id="profile-resource-details-title" class="mt-1 text-sm font-semibold text-gray-700"></p>
+        </div>
+        <button id="profile-resource-details-close" type="button" class="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-bold text-gray-700 hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar detalles">(×)</button>
+      </div>
+      <dl class="space-y-2 text-sm">
+        <div><dt class="inline font-semibold">Fecha de publicación: </dt><dd id="profile-resource-created-at" class="inline"></dd></div>
+        <div><dt class="inline font-semibold">Última edición: </dt><dd id="profile-resource-updated-at" class="inline"></dd></div>
+      </dl>
+      <h3 class="mt-5 text-sm font-bold text-brand-green">Recursos publicados</h3>
+      <ul id="profile-resource-details-list" class="mt-2 list-inside list-disc space-y-1 text-sm"></ul>
+    </div>
+  </dialog>
+
+  <dialog id="profile-password-confirm-dialog" class="profile-resource-details-dialog rounded-2xl border border-gray-200 bg-white p-0 text-gray-800 shadow-2xl backdrop:bg-black/60" aria-labelledby="profile-password-confirm-heading">
+    <div class="p-5 sm:p-6">
+      <h2 id="profile-password-confirm-heading" class="text-lg font-bold text-brand-green">Confirmar cambio de contraseña</h2>
+      <p class="mt-3 text-sm leading-relaxed text-gray-700">Al cambiar la contraseña se cerrará tu sesión en todos los dispositivos, incluida esta. Tendrás que iniciar sesión de nuevo con la contraseña nueva.</p>
+      <div class="mt-5 flex justify-end gap-2">
+        <button id="profile-password-confirm-cancel" type="button" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">Cancelar</button>
+        <button id="profile-password-confirm-accept" type="button" class="rounded-lg bg-brand-blue px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blueDark focus-visible-custom">Continuar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- PIE DE PÁGINA (FOOTER) -->
+  <footer class="bg-brand-green text-white border-t border-brand-greenLight pt-10 pb-6 mt-0 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-white/10">
+      
+      <!-- Columna 1: Información del Proyecto -->
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded bg-brand-yellow text-brand-green font-bold flex items-center justify-center text-sm">
+            EI
+          </div>
+          <span class="text-lg font-bold">Educa Inclusiva Panamá</span>
+        </div>
+        <p class="text-xs text-gray-200 leading-relaxed">
+          Proyecto académico conceptual desarrollado para el Módulo N.º 5 del Curso "Diseño Gráfico de Interfaz aplicando Interacción Humano-Computadora (HCI)".
+        </p>
+      </div>
+
+      <!-- Columna 2: Secciones del Portal -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-sm text-brand-yellow flex items-center gap-1.5">
+          <i data-lucide="compass" class="w-4 h-4" aria-hidden="true"></i>
+          Secciones del Portal
+        </h4>
+        <nav class="flex flex-col space-y-2 text-xs text-gray-200" aria-label="Secciones del portal en pie de página">
+          <a href="/#recursos" class="hover:text-brand-yellow hover:underline transition focus-visible-custom">Recursos Pedagógicos</a>
+          <a href="/#consensus-blog" class="hover:text-brand-yellow hover:underline transition focus-visible-custom">Blog de Consenso</a>
+          <a href="/#docentes" class="hover:text-brand-yellow hover:underline transition focus-visible-custom">Orientación para Docentes</a>
+          <a href="/#familias" class="hover:text-brand-yellow hover:underline transition focus-visible-custom">Espacio para Familias</a>
+          <a href="/#directorio" class="hover:text-brand-yellow hover:underline transition focus-visible-custom">Directorio Oficial (MEDUCA/IPHE)</a>
+        </nav>
+      </div>
+
+      <!-- Columna 3: Compromiso Accesibilidad WCAG -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-sm text-brand-yellow flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4" aria-hidden="true"></i>
+          Declaración de Accesibilidad
+        </h4>
+        <p class="text-xs text-gray-200 leading-relaxed">
+          Interfaz diseñada bajo las Pautas de Accesibilidad al Contenido Web <strong>WCAG 2.2 Nivel AA</strong> (Perceptible, Operable, Comprensible y Robusto). Compatible con navegación por teclado y lectores de pantalla.
+        </p>
+      </div>
+
+      <!-- Columna 4: Protección y Ética -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-sm text-brand-yellow flex items-center gap-1.5">
+          <i data-lucide="lock" class="w-4 h-4" aria-hidden="true"></i>
+          Protección y Ética
+        </h4>
+        <p class="text-xs text-gray-200 leading-relaxed">
+          Esta plataforma respeta la privacidad. No almacena ni divulga diagnósticos o datos sensibles de niños, niñas y estudiantes con discapacidad.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pt-6 text-center text-xs text-gray-300 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>© 2026 Educa Inclusiva Panamá - Proyecto Final HCI / UX-UI.</p>
+      <p class="text-gray-300">Basado en metodologías de Diseño Centrado en las Personas (ISO 9241-210).</p>
+    </div>
+  </footer>
+
+  <!-- MODAL DE PREVISUALIZACIÓN Y DESCARGA DE RECURSO (ACCESIBLE CON ARIA-MODAL) -->
+  <div 
+    id="resource-modal" 
+    class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm"
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="modal-title"
+    tabindex="-1"
+  >
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] min-h-0 flex flex-col overflow-hidden shadow-2xl card-bg border border-gray-200 animate-in fade-in zoom-in duration-150">
+      
+      <!-- Modal Header -->
+      <div class="shrink-0 bg-brand-green text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="file-text" class="w-5 h-5 text-brand-yellow" aria-hidden="true"></i>
+          <h3 id="modal-title" class="font-bold text-base md:text-lg">Previsualización de Ficha Educativa</h3>
+        </div>
+        <button id="modal-close-btn" class="p-1 rounded-lg hover:bg-white/20 focus-visible-custom text-white" aria-label="Cerrar ventana modal">
+          <i data-lucide="x" class="w-6 h-6" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="min-h-0 flex-1 p-6 overflow-y-auto overscroll-contain space-y-6 text-sm text-gray-800">
+        
+        <div class="flex flex-wrap gap-2" id="modal-tags">
+          <!-- Tags dinámicos -->
+        </div>
+
+        <div>
+          <img id="modal-resource-cover" src="/assets/resource-placeholder.svg" alt="Recurso educativo genérico. Contenido multimedia y documentos. Imagen en carga." width="500" height="500" class="mx-auto mb-4 aspect-square w-48 rounded-xl border border-blue-100 object-cover">
+          <h4 id="modal-resource-title" class="text-xl font-bold text-brand-green mb-2"></h4>
+          <p id="modal-resource-desc" class="text-gray-600 leading-relaxed"></p>
+        </div>
+
+        <div id="modal-resource-attachments" class="hidden space-y-4"></div>
+
+        <section id="resource-discussion-section" class="space-y-4 border-t border-gray-200 pt-5" aria-labelledby="resource-discussion-heading">
+          <div>
+            <h4 id="resource-discussion-heading" class="text-lg font-bold text-brand-green">Consenso sobre este recurso</h4>
+            <p class="mt-1 text-xs text-gray-600">Publica una idea o responde a los aportes de otras personas.</p>
+          </div>
+          <form id="resource-consensus-form" class="hidden space-y-3 rounded-xl border border-gray-200 bg-white p-4">
+            <label for="resource-consensus-title" class="block text-sm font-semibold text-gray-700">Título del aporte</label>
+            <input id="resource-consensus-title" name="title" type="text" maxlength="120" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue">
+            <label for="resource-consensus-body" class="block text-sm font-semibold text-gray-700">Contenido</label>
+            <textarea id="resource-consensus-body" name="body" rows="3" maxlength="4000" required class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"></textarea>
+            <p id="resource-consensus-feedback" class="hidden text-sm font-semibold text-red-700" role="alert" aria-live="assertive"></p>
+            <div class="flex justify-end gap-2">
+              <button type="button" id="btn-cancel-resource-consensus" class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 focus-visible-custom">Cancelar</button>
+              <button type="submit" class="rounded-lg bg-brand-green px-4 py-2 text-sm font-semibold text-white hover:bg-brand-greenLight focus-visible-custom">Publicar aporte</button>
+            </div>
+          </form>
+          <p id="resource-discussion-status" class="sr-only" role="status" aria-live="polite"></p>
+          <div id="resource-discussion-list" class="space-y-4" role="list" aria-live="polite"></div>
+        </section>
+
+        <!-- Vista Previa Ilustrativa Simulado -->
+        <div id="modal-simulated-preview" class="border-2 border-dashed border-gray-300 rounded-xl p-6 bg-brand-bgLight text-center space-y-3">
+          <div class="w-12 h-12 mx-auto bg-brand-blue/10 text-brand-blue rounded-full flex items-center justify-center">
+            <i data-lucide="file-check-2" class="w-6 h-6" aria-hidden="true"></i>
+          </div>
+          <div class="font-semibold text-brand-green">Vista Previa del Documento Adaptado</div>
+          <p class="text-xs text-gray-500 max-w-sm mx-auto">
+            Documento maquetado con contraste adecuado, tipografía de alta legibilidad (interlineado 1.5) y descripciones textuales completas.
+          </p>
+          <div id="modal-sample-box" class="bg-white p-4 rounded-lg border text-left text-xs space-y-2 text-gray-700 font-mono shadow-sm">
+            <!-- Muestra del contenido -->
+          </div>
+        </div>
+
+        <!-- Instrucciones de uso pedagógico -->
+        <div class="bg-amber-50 border-l-4 border-brand-yellow p-4 rounded-r-lg">
+          <h5 class="font-bold text-amber-900 text-xs uppercase tracking-wide">Pauta de aplicación en aula:</h5>
+          <p id="modal-pauta" class="text-xs text-amber-800 mt-1"></p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 p-4 border-t flex flex-col sm:flex-row justify-between items-center gap-3">
+        <span class="text-xs text-gray-500 flex items-center gap-1">
+          <i data-lucide="check" class="w-4 h-4 text-green-600" aria-hidden="true"></i>
+          Formato Accesible (PDF / Word)
+        </span>
+        <div class="flex gap-2 w-full sm:w-auto">
+          <button id="modal-cancel-btn" class="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium text-sm hover:bg-gray-100 transition focus-visible-custom">
+            Cerrar
+          </button>
+          <button id="modal-download-action" class="flex-1 sm:flex-initial px-5 py-2 bg-brand-blue hover:bg-brand-blueDark text-white font-bold rounded-lg text-sm flex items-center justify-center gap-2 transition focus-visible-custom">
+            <i data-lucide="download" class="w-4 h-4" aria-hidden="true"></i>
+            Descargar Ficha PDF
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div
+    id="upload-auth-modal"
+    class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="upload-auth-title"
+    aria-describedby="upload-auth-description"
+    tabindex="-1"
+  >
+    <div class="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl">
+      <div class="mb-4 flex items-start justify-between gap-4">
+        <h2 id="upload-auth-title" class="text-xl font-bold text-brand-green">Inicia sesión para participar</h2>
+        <button id="upload-auth-close" type="button" class="rounded-lg p-1 text-gray-600 hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar ventana">
+          <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p id="upload-auth-description" class="text-gray-700">Inicia sesión o regístrate para subir recursos, administrarlos o participar en las conversaciones de consenso.</p>
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <a href="/auth?mode=login" class="rounded-lg bg-brand-green px-4 py-2 text-center font-semibold text-white hover:bg-brand-greenLight focus-visible-custom">Iniciar sesión</a>
+        <a href="/auth?mode=register" class="rounded-lg bg-brand-yellow px-4 py-2 text-center font-semibold text-brand-green hover:bg-brand-yellowDark focus-visible-custom">Registrarte</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIÁLOGO DE CONFIRMACIÓN PARA ENLACES EXTERNOS -->
+  <div
+    id="external-link-modal"
+    class="external-link-dialog fixed inset-0 hidden items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-live="assertive"
+    aria-labelledby="external-link-title"
+    aria-describedby="external-link-message external-link-destination external-link-countdown"
+    tabindex="-1"
+  >
+    <div class="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-6 shadow-2xl card-bg">
+      <div class="mb-4 flex items-start justify-between gap-4">
+        <h2 id="external-link-title" class="text-xl font-bold text-brand-green">Enlace externo</h2>
+        <button id="external-link-close" type="button" class="rounded-lg p-1 text-gray-600 hover:bg-gray-100 focus-visible-custom" aria-label="Cerrar confirmación">
+          <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p id="external-link-message" class="mb-4 text-gray-700">Estás abandonando el sitio, ¿estás seguro?</p>
+      <p id="external-link-destination" class="mb-4 break-all text-gray-700">
+        Destino: <span id="external-link-destination-name" class="font-semibold"></span>
+      </p>
+      <p id="external-link-countdown" class="mb-2 font-semibold text-brand-blue" aria-live="off">
+        <span id="external-link-countdown-message">Podrás continuar en</span>
+        <span id="external-link-seconds">5</span>
+        <span id="external-link-countdown-unit">segundos.</span>
+      </p>
+      <p id="external-link-status" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></p>
+      <div class="mt-6 flex justify-end gap-3">
+        <button id="external-link-cancel" type="button" class="rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-100 focus-visible-custom">
+          Cancelar
+        </button>
+        <button id="external-link-confirm" type="button" class="rounded-lg bg-brand-blue px-4 py-2 font-bold text-white transition hover:bg-brand-blueDark focus-visible-custom disabled:opacity-50" disabled>
+          Continuar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN DE MENSAJE TIPO TOAST (REEMPLAZO DE ALERT()) -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 pointer-events-none" aria-live="assertive">
+    <!-- Insertado dinámicamente -->
+  </div>
+
+  <!-- BASE DE DATOS LOCAL Y LÓGICA DE APLICACIÓN EN JAVASCRIPT -->
+  <script src="accessibility-preferences.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

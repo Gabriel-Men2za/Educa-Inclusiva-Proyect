@@ -1,0 +1,18 @@
+node_modules/
+.env
+# Private account records and local backups; never publish these to GitHub.
+users.json*
+users-*.json
+data/users.json*
+data/users-*.json
+uploads/
+*.tmp
+
+data/
+src/
+package-lock.json
+PATH
+public/scripts/reset-password.js
+package.json
+scripts/
+assets/
